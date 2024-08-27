@@ -1,0 +1,35 @@
+
+query getAllUsers{
+  users{
+    id,
+    email,
+    name
+    password
+  }
+}
+
+
+query getAllQuotes{
+  quotes{
+    id,
+    title,
+    description,
+    userId
+    
+  }
+}
+
+
+query getSingleUser{
+  user(id:"3"){
+    id,
+    name,
+    email
+  }
+}
+
+query getAllQuotes{
+    quote(userId:"1"){
+      id,userId,description
+    }
+}
