@@ -2,6 +2,7 @@ import { users, quotes } from './data.js'
 import jwt from 'jsonwebtoken' 
 import UserModel from './model/userModel.js'
 import bcryptjs from 'bcryptjs'
+import QuoteModel from './model/quoteModel.js'
 let resolvers = {
     Query: {
       users: () => users,
@@ -40,6 +41,19 @@ let resolvers = {
 
            let token =jwt.sign({userId:user._id},'TSHSHHSHSHHSHSHHSH',{expiresIn:"1d"})
            return {token}  
+        },
+        createQuote:async(_,{newQuote},{userId})=>{
+          
+          if(!userId){
+            throw new Error('404 please logged in first to create new quote')
+          }
+          let quote=new QuoteModel({
+            ...newQuote,
+            userId:userId
+          })
+          let result=await quote.save()
+          return result
+
         }
 
     }

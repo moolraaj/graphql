@@ -17,5 +17,5 @@ let quoteSchema=new mongoose.Schema({
     },
 })
 
-let QuoteModel=mongoose.models(quotes)||mongoose.model('quotes',quoteSchema)
+let QuoteModel=mongoose.model('quotes',quoteSchema)
 export default QuoteModel

@@ -25,6 +25,7 @@ let typeDefs = gql`
   type Mutation{
   saveUser(newUser:InputUser):Users
   signinUser(signin:signInInput):token
+  createQuote(newQuote:quotesInput):Quotes
   }
 
   type token{
@@ -34,6 +35,12 @@ let typeDefs = gql`
   input signInInput{
   email:String,
   password:String
+  }
+
+  input quotesInput{
+   title: String
+    description: String
+    userId: String
   }
 
   input InputUser{
