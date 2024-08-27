@@ -5,10 +5,23 @@ import bcryptjs from 'bcryptjs'
 import QuoteModel from './model/quoteModel.js'
 let resolvers = {
     Query: {
-      users: () => users,
-      user:(_,{_id})=>users.find(e=>e._id==_id),
-      quote:(_,{userId})=>quotes.filter(e=>e.userId==userId),
-      quotes: () => quotes,
+      users: async() => {
+        let user=await UserModel.find()
+        return user
+      },
+      user:async(_,{_id})=>{
+        let user=await UserModel.findOne({_id})
+        return user
+      },
+      quote: async (_, { userId }) => {
+        let quotes = await QuoteModel.find({ userId });
+        return quotes;
+      },
+      
+      quotes: async() => {
+        let quotes=await QuoteModel.find()
+        return quotes
+      },
     },
     Users:{
       quotes:(parent)=>quotes.filter(e=>e.userId==parent._id)
