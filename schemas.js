@@ -2,13 +2,13 @@ import {  gql } from 'apollo-server'
 let typeDefs = gql`
   type Query {
     users: [Users]
-    user(id:ID!):Users
+    user(_id:ID!):Users
     quotes: [Quotes]
     quote(userId:ID!):[Quotes]
   }
 
   type Users {
-    id: String
+    _id: String
     name: String
     email: String
     password: String
@@ -16,7 +16,7 @@ let typeDefs = gql`
   }
 
   type Quotes {
-    id: String
+    _id: String
     title: String
     description: String
     userId: String
@@ -24,6 +24,16 @@ let typeDefs = gql`
 
   type Mutation{
   saveUser(newUser:InputUser):Users
+  signinUser(signin:signInInput):token
+  }
+
+  type token{
+  token:String
+  }
+
+  input signInInput{
+  email:String,
+  password:String
   }
 
   input InputUser{

@@ -16,5 +16,5 @@ let userSchema=new mongoose.Schema({
     },
 })
 
-let UserModel=mongoose.models(users)||mongoose.model('users',userSchema)
+let UserModel=mongoose.model('users',userSchema)
 export default UserModel
