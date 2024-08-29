@@ -1,4 +1,4 @@
-import { users, quotes } from './data.js'
+
 import jwt from 'jsonwebtoken' 
 import UserModel from './model/userModel.js'
 import bcryptjs from 'bcryptjs'
@@ -6,7 +6,7 @@ import QuoteModel from './model/quoteModel.js'
 let resolvers = {
     Query: {
       users: async() => {
-        let user=await UserModel.find()
+        let user=await UserModel.find({})
         return user
       },
       user:async(_,{_id})=>{
@@ -17,14 +17,17 @@ let resolvers = {
         let quotes = await QuoteModel.find({ userId });
         return quotes;
       },
-      
+
       quotes: async() => {
-        let quotes=await QuoteModel.find()
+        let quotes=await QuoteModel.find({})
         return quotes
       },
     },
     Users:{
-      quotes:(parent)=>quotes.filter(e=>e.userId==parent._id)
+      quotes:async(parent)=>{
+        let data=await QuoteModel.find({userId:parent._id})
+        return data
+      }
     },
     Mutation:{
         saveUser:async(_,{newUser})=>{

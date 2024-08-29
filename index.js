@@ -1,12 +1,13 @@
 import { ApolloServer, gql } from 'apollo-server'
 import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core'
 import { dbconnect } from './database/databse.js'
-import jwt from 'jsonwebtoken'
+
 dbconnect()
 
 import typeDefs from './schemas.js'
 import resolvers from './resolvers.js' 
 
+import jwt from 'jsonwebtoken'
 
 let server = new ApolloServer({
   typeDefs,
@@ -17,7 +18,6 @@ let server = new ApolloServer({
       let{userId}=jwt.verify(authorization,'TSHSHHSHSHHSHSHHSH',{expiresIn:"1d"})
       return {userId}
     }
-
   },
   plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
 })
